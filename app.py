@@ -54,9 +54,17 @@ def validate_emails(df):
 st.title("Ye chal email banate hai")
 st.write("ye bhidu!  teri file idhar UPLOAD kar na")
 
-uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
+uploaded_file = st.file_uploader("Upload CSV or Excel", type=["csv", "xlsx"])
 if uploaded_file is not None:
-    df = pd.read_csv(uploaded_file)
+    file_extension = uploaded_file.name.split(".")[-1]
+    if file_extension == "csv":
+        df = pd.read_csv(uploaded_file)
+    elif file_extension == "xlsx":
+        df = pd.read_excel(uploaded_file)
+    else:
+        st.error("Unsupported file format. Please upload a CSV or Excel file.")
+        st.stop()
+    
     if 'Email' in df.columns:
         st.write("### Uploaded Data")
         st.dataframe(df.head())
@@ -67,11 +75,18 @@ if uploaded_file is not None:
             st.dataframe(result_df)
             
             # Save results to CSV
-            temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".csv")
-            result_df.to_csv(temp_file.name, index=False)
+            temp_csv = tempfile.NamedTemporaryFile(delete=False, suffix=".csv")
+            result_df.to_csv(temp_csv.name, index=False)
             
-            # Provide download link
-            with open(temp_file.name, "rb") as file:
+            # Save results to Excel
+            temp_xlsx = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx")
+            with pd.ExcelWriter(temp_xlsx.name, engine='xlsxwriter') as writer:
+                result_df.to_excel(writer, index=False)
+            
+            # Provide download links
+            with open(temp_csv.name, "rb") as file:
                 st.download_button("Download Results as CSV", file, "validated_emails.csv", "text/csv")
+            with open(temp_xlsx.name, "rb") as file:
+                st.download_button("Download Results as Excel", file, "validated_emails.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
     else:
-        st.error("CSV file must contain an 'Email' column.")
+        st.error("CSV or Excel file must contain an 'Email' column.")
