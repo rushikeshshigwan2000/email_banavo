@@ -3,3 +3,4 @@ pandas
 dnspython
 pyngrok
 openpyxl
+xlsxwriter
