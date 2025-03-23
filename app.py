@@ -51,8 +51,8 @@ def validate_emails(df):
     return pd.DataFrame(results, columns=['Email', 'Domain', 'Domain Valid', 'Email Valid'])
 
 # Streamlit UI
-st.title("Email Verification Tool")
-st.write("Upload a CSV file containing email addresses for validation.")
+st.title("Ye chal email banate hai")
+st.write("ye bhidu!  teri file idhar UPLOAD kar na")
 
 uploaded_file = st.file_uploader("Upload CSV", type=["csv"])
 if uploaded_file is not None:
