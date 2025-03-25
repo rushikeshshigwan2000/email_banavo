@@ -54,6 +54,24 @@ def validate_emails(df):
 st.title("Ye chal email banate hai")
 st.write("ye bhidu!  teri file idhar UPLOAD kar na")
 
+# Single Email Validation Input
+single_email = st.text_input("Enter a single email to validate")
+if st.button("Validate Email"):
+    if single_email:
+        domain = extract_domain(single_email)
+        if domain:
+            domain_status = is_domain_valid(domain)
+            email_status = is_email_valid(single_email, domain) if domain_status else False
+            st.write(f"**Email:** {single_email}")
+            st.write(f"**Domain:** {domain}")
+            st.write(f"**Domain Valid:** {'✅' if domain_status else '❌'}")
+            st.write(f"**Email Valid:** {'✅' if email_status else '❌'}")
+        else:
+            st.error("Invalid email format. Please enter a valid email.")
+    else:
+        st.error("Please enter an email to validate.")
+        
+
 uploaded_file = st.file_uploader("Upload CSV or Excel", type=["csv", "xlsx"])
 if uploaded_file is not None:
     file_extension = uploaded_file.name.split(".")[-1]
