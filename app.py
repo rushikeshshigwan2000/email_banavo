@@ -72,6 +72,7 @@ if st.button("Validate Email"):
         st.error("Please enter an email to validate.")
         
 st.write("Upload your Excel file here")
+
 uploaded_file = st.file_uploader("Upload CSV or Excel", type=["csv", "xlsx"])
 if uploaded_file is not None:
     file_extension = uploaded_file.name.split(".")[-1]
