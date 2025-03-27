@@ -29,7 +29,7 @@ def is_email_valid(email, domain):
         server = smtplib.SMTP(timeout=10)
         server.connect(mx_record)
         server.helo()
-        server.mail('test@example.com')
+        server.mail('noreply@datagateway.in')
         code, message = server.rcpt(email)
         server.quit()
 
