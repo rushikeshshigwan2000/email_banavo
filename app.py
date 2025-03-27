@@ -52,7 +52,7 @@ def validate_emails(df):
 
 # Streamlit UI
 st.title(" Email Checker")
-st.write("Paste your single Email id here")
+
 
 # Single Email Validation Input
 single_email = st.text_input("Enter a single email to validate")
