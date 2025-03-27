@@ -51,8 +51,8 @@ def validate_emails(df):
     return pd.DataFrame(results, columns=['Email', 'Domain', 'Domain Valid', 'Email Valid'])
 
 # Streamlit UI
-st.title("Ye chal email banate hai")
-st.write("ye bhidu!  teri file idhar UPLOAD kar na")
+st.title(" Email Checker")
+st.write("Paste your single Email id here")
 
 # Single Email Validation Input
 single_email = st.text_input("Enter a single email to validate")
@@ -71,7 +71,7 @@ if st.button("Validate Email"):
     else:
         st.error("Please enter an email to validate.")
         
-
+st.write("Upload your Excel file here")
 uploaded_file = st.file_uploader("Upload CSV or Excel", type=["csv", "xlsx"])
 if uploaded_file is not None:
     file_extension = uploaded_file.name.split(".")[-1]
