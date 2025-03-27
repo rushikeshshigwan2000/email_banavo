@@ -51,9 +51,10 @@ def validate_emails(df):
     return pd.DataFrame(results, columns=['Email', 'Domain', 'Domain Valid', 'Email Valid'])
 
 # Streamlit UI
-st.title(" Email Checker")
 # Center align title using Markdown and HTML
 st.markdown("<h1 style='text-align: center;'>Email Checker</h1>", unsafe_allow_html=True)
+
+
 
 
 # Single Email Validation Input
